@@ -30,7 +30,6 @@ export default function DashboardLayout({
     <div className="flex min-h-screen bg-gray-50">
       <Sidebar 
         collapsed={isMobile && sidebarCollapsed} 
-        onToggle={() => setSidebarCollapsed(!sidebarCollapsed)} 
       />
       <main className="flex-1">
         {/* Top Bar with Toggle Button (Mobile Only) */}

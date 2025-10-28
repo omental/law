@@ -13,24 +13,25 @@ export default function DashboardPage() {
   const [userRole, setUserRole] = useState<string | null>(null);
   const [userName, setUserName] = useState('');
 
-  useEffect(() => {
-    const fetchProfile = async () => {
-      const { data: { session } } = await supabase.auth.getSession();
-      if (session) {
-        setUserName(session.user.email.split('@')[0] || 'User');
-        
-        const {  profile } = await supabase
-          .from('profiles')
-          .select('role')
-          .eq('id', session.user.id)
-          .single();
-        
-        setUserRole(profile?.role || 'client');
-      }
-    };
+useEffect(() => {
+  const fetchProfile = async () => {
+    const { data: { session } } = await supabase.auth.getSession();
+    if (session) {
+      // Handle possibly undefined email safely
+      setUserName(session.user.email?.split('@')[0] ?? 'User');
 
-    fetchProfile();
-  }, []);
+      const { data: profile } = await supabase
+        .from('profiles')
+        .select('role')
+        .eq('id', session.user.id)
+        .single();
+
+      setUserRole(profile?.role || 'client');
+    }
+  };
+
+  fetchProfile();
+}, []);
 
   return (
     <div className="p-6">

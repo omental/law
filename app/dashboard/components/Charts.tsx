@@ -264,8 +264,7 @@ export default function Charts() {
   isAnimationActive={true}
 >
   {data.map((entry, index) => {
-    const isHighest = entry.earnings === Math.max(...data.map(d => d.earnings));
-    return (
+const isHighest = entry.value === Math.max(...data.map(d => d.value));    return (
       <Cell
         key={`cell-${index}`}
         fill={isHighest ? '#351DEB' : '#E8E6FC'} // ✅ Your exact colors
